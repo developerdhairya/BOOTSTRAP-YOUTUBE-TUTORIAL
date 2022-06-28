@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./Login.css"
 
 function Login() {
@@ -8,7 +9,7 @@ function Login() {
             <Row>
                 <Col md={5} className="login__bg"></Col>
                 <Col md={7} className="d-flex align-items-center justify-content-center flex-direction-column">
-                    <Form>
+                    <Form style={{width:"80%",maxWidth:500}}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control type="email" placeholder="Enter email" />
@@ -25,8 +26,13 @@ function Login() {
                             <Form.Check type="checkbox" label="Check me out" />
                         </Form.Group>
                         <Button variant="primary" type="submit">
-                            Submit
+                            Login
                         </Button>
+                        <div className="py-4">
+                            <p className="text-center">
+                                Dont have an account ? <Link to="/signup">Signup</Link>
+                            </p>
+                        </div>
                     </Form></Col>
             </Row>
         </Container>
