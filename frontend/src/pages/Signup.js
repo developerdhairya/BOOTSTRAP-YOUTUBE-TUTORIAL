@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import "./Signup.css"
 import botImage from "../assets/bot.jpeg";
 
-function validateImage() {
 
-}
 
 function Signup() {
 
@@ -14,14 +12,44 @@ function Signup() {
     const [email,setEmail]=useState('');
     const [name,setName]=useState('');
 
+
+    const [image,setImage]=useState(null);
+    // const [uploadingImage,setUploading]=useState(false);
+    const [imagePreview,setImagePreview]=useState(null);
+
+    function validateImage(e) {
+        console.log("k");
+        const file=e.target.files[0];
+        if(file.size>1048576){
+            return alert("File size should not be greater than 1MB"); 
+        }else{
+            console.log("k");
+            setImage(file);
+            setImagePreview(URL.createObjectURL(file));
+        }
+    }
+
+    async function uploadImage(image){
+        // Upload image to api
+    }
+    
+    async function handleSignup(e){
+
+        if(!image) return alert("Please upload your profile picture");
+        // const url=await uploadImage(image);
+        // console.log(url);
+        //authenticate the user
+        e.preventdefault();
+    }
+
     return (
         <Container>
             <Row>
                 <Col md={7} className="d-flex align-items-center justify-content-center flex-direction-column">
-                    <Form style={{ width: "80%", maxWidth: 500 }}>
+                    <Form style={{ width: "80%", maxWidth: 500 }} onSubmit={handleSignup}>
                         <h1 className="text-center">Create Account</h1>
                         <div className="mx-auto" style={{ height: 100, width: 100, position: "relative" }}>
-                            <img className="signup-profile-pic" src={botImage} />
+                            <img className="signup-profile-pic" src={imagePreview||botImage} />
                             <label htmlFor="image-upload" className="image-upload-level">
                                 <i className="fas fa-plus-circle add-picture-icon" />
                             </label>
@@ -38,7 +66,6 @@ function Signup() {
                                 We'll never share your email with anyone else.
                             </Form.Text>
                         </Form.Group>
-
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} value={password}/>
